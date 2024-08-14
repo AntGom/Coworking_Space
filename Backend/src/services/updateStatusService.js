@@ -6,7 +6,7 @@ const updateSpaceStatus = async () => {
         // Obtener la fecha y hora actual en formato compatible con MySQL
         const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
-        // Actualizar estado de espacios donde la reserva ha terminado
+        // Actualizar estado de espacios donde la reserva ya ha finalizado a "libre".
         await pool.query(
             `
             UPDATE espacios
@@ -20,7 +20,7 @@ const updateSpaceStatus = async () => {
             [now]
         );
 
-        // Actualizar el estado de la reserva para indicar que el espacio queda libre
+        // Actualizar el estado de la reserva a "finalizada" para las reservas que ya han finalizado.
         await pool.query(
             `
             UPDATE reservas
@@ -36,5 +36,5 @@ const updateSpaceStatus = async () => {
     }
 };
 
-// Programar la tarea para que se ejecute todos los días a las 06:30h
-cron.schedule('30 6 * * *', updateSpaceStatus);
+// Programar la tarea para que se ejecute cada 5 minutos.
+cron.schedule('*/5 * * * *', updateSpaceStatus);
