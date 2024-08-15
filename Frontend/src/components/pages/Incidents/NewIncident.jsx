@@ -46,10 +46,18 @@ function NewIncident() {
 
   return (
     <div className="flex flex-col items-center pt-6 pb-12 px-6 bg-gray-100 min-h-screen">
-      <h2 className="text-xl font-bold text-gray-800 mb-6">¿Cómo podemos ayudarte?</h2>
-      <form onSubmit={handleSubmit} className="p-6 bg-white rounded-lg shadow-md max-w-md w-full">
+      <h2 className="text-xl font-bold text-gray-800 mb-6">
+        ¿Cómo podemos ayudarte?
+      </h2>
+      <form
+        onSubmit={handleSubmit}
+        className="p-6 bg-white rounded-lg shadow-md max-w-md w-full"
+      >
         <div className="mb-4">
-          <label htmlFor="titulo" className="block text-sm font-semibold text-gray-700 mb-2">
+          <label
+            htmlFor="titulo"
+            className="block text-sm font-semibold text-gray-700 mb-2"
+          >
             Descripción
           </label>
           <input
@@ -62,7 +70,10 @@ function NewIncident() {
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="categoria" className="block text-sm font-semibold text-gray-700 mb-2">
+          <label
+            htmlFor="categoria"
+            className="block text-sm font-semibold text-gray-700 mb-2"
+          >
             Categoría
           </label>
           <select
@@ -78,6 +89,8 @@ function NewIncident() {
             <option value={1}>Electricidad</option>
             <option value={2}>Mobiliario</option>
             <option value={3}>Limpieza</option>
+            <option value={5}>Incidencias</option>
+            <option value={4}>Otros</option>
           </select>
         </div>
         <div className="flex flex-col items-center mb-4">

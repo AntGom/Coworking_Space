@@ -7,7 +7,6 @@ class Auth {
 
   logout() {
     localStorage.removeItem("token");
-    window.location.reload();
   }
 
   getProfile() {

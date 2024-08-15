@@ -10,7 +10,9 @@ INSERT INTO categorias_incidencias (nombre, descripcion)
 VALUES
     ('Electricidad', 'Problemas relacionados con instalaciones eléctricas'),
     ('Mobiliario', 'Incidencias relacionadas con muebles y equipamientos'),
-    ('Limpieza', 'Problemas de limpieza y mantenimiento');
+    ('Limpieza', 'Problemas de limpieza y mantenimiento'),
+    ('Otros', 'Incidencias que no se ajustan a las anteriores'),
+    ('Incidencias', 'Incidencias sobre la reserva');
 
 -- Insertar espacios
 INSERT INTO espacios (nombre, descripcion, categoria_id, capacidad, precio_por_persona, precio_espacio_completo, direccion, estado,)

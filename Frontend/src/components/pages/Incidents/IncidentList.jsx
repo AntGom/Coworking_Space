@@ -20,7 +20,6 @@ const IncidentList = () => {
         });
         setIncidents(response.data);
         setLoading(false);
-        toast.success("Incidencias cargadas correctamente");
       } catch (err) {
         console.error("Error al obtener las incidencias:", err);
         toast.error("Hubo un error al obtener las incidencias");
