@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NewMessage from "./NewMessage.jsx";
-import {jwtDecode} from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 // Función para obtener el ID del usuario logueado desde el token.
 const getUserIdFromToken = () => {
@@ -89,53 +89,54 @@ const MessagesPage = () => {
 
   return (
     <div className="flex flex-col items-center pt-6 pb-12 px-6 bg-gray-100 min-h-screen">
-      <h2 className="text-xl font-bold text-gray-800">Mensajes</h2>
-      <div className="p-6 rounded-lg shadow-md w-full max-w-4xl relative">
-        {messages.length > 0 ? (
-          <ul className="space-y-4">
-            {messages.map((message) => (
-              <li
-                key={message.mensaje_id}
-                className={`p-4 border-b border-gray-200 rounded shadow-sm ${
+      <h2 className="text-xl font-bold text-gray-800 mb-2">Mensajes</h2>
+      {messages.length > 0 ? (
+        <ul className="space-y-4">
+          {messages.map((message) => (
+            <li
+              key={message.mensaje_id}
+              className={`p-4 border-b border-gray-200 rounded shadow-sm ${
+                message.usuario_id === currentUserId
+                  ? "bg-blue-100  ml-auto"
+                  : "bg-white  mr-auto"
+              }`}
+              style={{
+                maxWidth: "85%",
+                borderRadius: "20px",
+                display: "flex",
+                flexDirection: "column",
+                alignItems:
                   message.usuario_id === currentUserId
-                    ? "bg-blue-100 text-right ml-auto"
-                    : "bg-white text-left mr-auto"
-                }`}
-                style={{
-                  maxWidth: "70%",
-                  borderRadius: "20px",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: message.usuario_id === currentUserId ? "flex-end" : "flex-start",
-                }}
-              >
-                <p className="font-bold">{message.username}</p>
-                <p>{message.mensaje}</p>
-                <p>
-                  <strong>{message.fecha_creacion} - {message.hora_creacion}</strong>
-                </p>
-              </li>
-            ))}
-            <div ref={bottomRef} />
-          </ul>
-        ) : (
-          <div>No hay mensajes para esta incidencia.</div>
-        )}
-        {showNewMessage && (
-          <div className="fixed bottom-16 right-6 max-w-lg p-4 bg-white shadow-lg rounded">
-            <NewMessage incidentId={id} onMessageSent={handleNewMessageSent} />
-          </div>
-        )}
-        <div className="fixed bottom-6 right-6">
-          <button
-            onClick={handleNewMessageClick}
-            className={`px-4 py-2 text-white rounded ${
-              showNewMessage ? "" : "bg-blue-500 hover:bg-blue-700"
-            }`}
-          >
-            {showNewMessage ? "" : "Nuevo Mensaje"}
-          </button>
+                    ? "flex-end"
+                    : "flex-start",
+              }}
+            >
+              <p className="font-bold text-sm">{message.username}</p>
+              <p className="text-sm ">{message.mensaje}</p>
+              <p className="text-xs text-right w-full">
+                {message.fecha_creacion} - {message.hora_creacion}
+              </p>
+            </li>
+          ))}
+          <div ref={bottomRef} />
+        </ul>
+      ) : (
+        <div>No hay mensajes para esta incidencia.</div>
+      )}
+      {showNewMessage && (
+        <div className="fixed bottom-16 right-6 max-w-lg p-4 bg-white shadow-lg rounded">
+          <NewMessage incidentId={id} onMessageSent={handleNewMessageSent} />
         </div>
+      )}
+      <div className="fixed bottom-6 right-6">
+        <button
+          onClick={handleNewMessageClick}
+          className={`px-4 py-2 text-white rounded ${
+            showNewMessage ? "" : "bg-blue-500 hover:bg-blue-700"
+          }`}
+        >
+          {showNewMessage ? "" : "Nuevo Mensaje"}
+        </button>
       </div>
     </div>
   );
