@@ -77,9 +77,45 @@ function MyBookings() {
   };
 
   const handleCreateIncident = (bookingId, espacioId) => {
-    navigate('/space/new-incident', {
-      state: { bookingId, espacioId }
+    navigate("/space/new-incident", {
+      state: { bookingId, espacioId },
     });
+  };
+
+  const handleCancelBooking = async (bookingId) => {
+    if (!token) {
+      toast.error("Usuario no autenticado.");
+      return;
+    }
+
+    try {
+      const response = await axios.put(
+        `/api/bookings/cancel`,
+        { reserva_id: bookingId },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success("Reserva cancelada correctamente");
+        setBookings((prevBookings) =>
+          prevBookings.map((booking) =>
+            booking.id === bookingId
+              ? { ...booking, estado: "cancelada" }
+              : booking
+          )
+        );
+      } else {
+        toast.error("No se pudo cancelar la reserva. Intenta de nuevo.");
+      }
+    } catch (error) {
+      const errorMessage = error.response?.data?.message || error.message;
+      console.error("Error al cancelar la reserva:", errorMessage);
+      toast.error(` ${errorMessage}`);
+    }
   };
 
   if (loading) {
@@ -112,7 +148,11 @@ function MyBookings() {
                 {booking.espacio_nombre}
               </h3>
               <img
-                src={booking.espacio_foto_name ? `${apiUrl}/${booking.espacio_foto_name}` : "https://via.placeholder.com/300x200"}
+                src={
+                  booking.espacio_foto_name
+                    ? `${apiUrl}/${booking.espacio_foto_name}`
+                    : "https://via.placeholder.com/300x200"
+                }
                 alt={booking.espacio_nombre}
                 className="w-20 h-20 rounded-lg object-cover"
               />
@@ -133,54 +173,62 @@ function MyBookings() {
               <span className="font-semibold">Observaciones: </span>
               {booking.observaciones}
             </p>
-            <div className="flex justify-around mt-4">
+            <div className="flex justify-around gap-4 mt-4">
               <button
-                onClick={() => handleCreateIncident(booking.id, booking.espacio_id)}
-                className="bg-blue-500  hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                onClick={() =>
+                  handleCreateIncident(booking.id, booking.espacio_id)
+                }
+                className="bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
               >
                 Notificar Incidencia
               </button>
-              {ratings[booking.id] === 0 ? (
-                <div className="flex flex-col items-center">
-                  <span className="text-center font-semibold mb-2">
-                    Valora tu experiencia
-                  </span>
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((value) => (
-                      <FaStar
-                        key={value}
-                        onClick={() => handleVote(booking.id, value)}
-                        className={`cursor-pointer mx-1 ${
-                          ratings[booking.id] >= value
-                            ? "text-yellow-500"
-                            : "text-gray-300"
-                        }`}
-                        size={24}
-                      />
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center">
-                  <span className="text-center font-semibold mb-2">
-                    Tu valoración ha sido
-                  </span>
-                  <div className="flex">
-                    {[1, 2, 3, 4, 5].map((value) => (
-                      <FaStar
-                        key={value}
-                        className={`mx-1 ${
-                          ratings[booking.id] >= value
-                            ? "text-yellow-500"
-                            : "text-gray-300"
-                        }`}
-                        size={24}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
+              <button
+                onClick={() => handleCancelBooking(booking.id)}
+                className="bg-red-500 hover:bg-red-700 text-white font-semibold py-2 px-4 rounded"
+              >
+                Cancelar Reserva
+              </button>
             </div>
+            {ratings[booking.id] === 0 ? (
+              <div className="flex flex-col items-center mt-4">
+                <span className="text-center font-semibold mb-2">
+                  Valora tu experiencia
+                </span>
+                <div className="flex">
+                  {[1, 2, 3, 4, 5].map((value) => (
+                    <FaStar
+                      key={value}
+                      onClick={() => handleVote(booking.id, value)}
+                      className={`cursor-pointer mx-1 ${
+                        ratings[booking.id] >= value
+                          ? "text-yellow-500"
+                          : "text-gray-300"
+                      }`}
+                      size={24}
+                    />
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center mt-4">
+                <span className="text-center font-semibold mb-2">
+                  Tu valoración ha sido
+                </span>
+                <div className="flex">
+                  {[1, 2, 3, 4, 5].map((value) => (
+                    <FaStar
+                      key={value}
+                      className={`mx-1 ${
+                        ratings[booking.id] >= value
+                          ? "text-yellow-500"
+                          : "text-gray-300"
+                      }`}
+                      size={24}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         ))}
       </div>
