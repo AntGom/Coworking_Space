@@ -49,8 +49,9 @@ const SpaceCard = ({ espacio }) => {
           <h3 className="text-lg font-semibold text-gray-700 mb-1">Precio</h3>
           <p className="text-gray-600">${espacio.precio_espacio_completo}</p>
         </div>
-
-        <div>
+        
+        {/* Centrar Valoración y Estrellas */}
+        <div className="flex flex-col items-center mt-4">
           <h3 className="text-lg font-semibold text-gray-700 mb-1">
             Valoración media
           </h3>

@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 const FilterForm = ({
   filters,
   categorias,
-  equipamientos,
   handleInputChange,
-  handleSubmit
+  handleSubmit,
 }) => (
   <form
     onSubmit={handleSubmit}
@@ -16,7 +15,9 @@ const FilterForm = ({
     </h1>
     <div className="flex flex-wrap gap-4 justify-center">
       <div className="w-full  md:w-1/3 lg:w-1/4">
-        <label className="block mb-2 font-semibold text-gray-700">Capacidad:</label>
+        <label className="block mb-2 font-semibold text-gray-700">
+          Capacidad:
+        </label>
         <input
           name="capacidad"
           type="number"
@@ -28,7 +29,9 @@ const FilterForm = ({
       </div>
 
       <div className="w-full  md:w-1/3 lg:w-1/4">
-        <label className="block mb-2 font-semibold text-gray-700">Precio Desde:</label>
+        <label className="block mb-2 font-semibold text-gray-700">
+          Precio Desde:
+        </label>
         <input
           name="precioDesde"
           type="number"
@@ -40,7 +43,9 @@ const FilterForm = ({
       </div>
 
       <div className="w-full  md:w-1/3 lg:w-1/4">
-        <label className="block mb-2 font-semibold text-gray-700">Precio Hasta:</label>
+        <label className="block mb-2 font-semibold text-gray-700">
+          Precio Hasta:
+        </label>
         <input
           name="precioHasta"
           type="number"
@@ -52,21 +57,9 @@ const FilterForm = ({
       </div>
 
       <div className="w-full  md:w-1/3 lg:w-1/4">
-        <label className="block mb-2 font-semibold text-gray-700">Estado:</label>
-        <select
-          name="estado"
-          value={filters.estado}
-          onChange={handleInputChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value="">Seleccione estado</option>
-          <option value="libre">Libre</option>
-          <option value="ocupado">Ocupado</option>
-        </select>
-      </div>
-
-      <div className="w-full  md:w-1/3 lg:w-1/4">
-        <label className="block mb-2 font-semibold text-gray-700">Valoración:</label>
+        <label className="block mb-2 font-semibold text-gray-700">
+          Valoración:
+        </label>
         <input
           name="valoracion_media"
           type="number"
@@ -78,7 +71,9 @@ const FilterForm = ({
       </div>
 
       <div className="w-full  md:w-1/3 lg:w-1/4">
-        <label className="block mb-2 font-semibold text-gray-700">Categoría:</label>
+        <label className="block mb-2 font-semibold text-gray-700">
+          Categoría:
+        </label>
         <select
           name="categoria_nombre"
           value={filters.categoria_nombre}
@@ -95,24 +90,9 @@ const FilterForm = ({
       </div>
 
       <div className="w-full  md:w-1/3 lg:w-1/4">
-        <label className="block mb-2 font-semibold text-gray-700">Equipamiento:</label>
-        <select
-          name="equipamiento"
-          value={filters.equipamiento}
-          onChange={handleInputChange}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        >
-          <option value="">Seleccione equipamiento</option>
-          {equipamientos.map((equip) => (
-            <option key={equip.id} value={equip.nombre}>
-              {equip.nombre}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      <div className="w-full  md:w-1/3 lg:w-1/4">
-        <label className="block mb-2 font-semibold text-gray-700">Ordenar Por:</label>
+        <label className="block mb-2 font-semibold text-gray-700">
+          Ordenar Por:
+        </label>
         <select
           name="orderBy"
           value={filters.orderBy}
@@ -127,7 +107,9 @@ const FilterForm = ({
       </div>
 
       <div className="w-full  md:w-1/3 lg:w-1/4">
-        <label className="block mb-2 font-semibold text-gray-700">Dirección de Ordenación:</label>
+        <label className="block mb-2 font-semibold text-gray-700">
+          Dirección de Ordenación:
+        </label>
         <select
           name="orderDirection"
           value={filters.orderDirection}
@@ -162,22 +144,22 @@ FilterForm.propTypes = {
     categoria_nombre: PropTypes.string,
     equipamiento: PropTypes.string,
     orderBy: PropTypes.string,
-    orderDirection: PropTypes.string
+    orderDirection: PropTypes.string,
   }).isRequired,
   categorias: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      nombre: PropTypes.string.isRequired
+      nombre: PropTypes.string.isRequired,
     })
   ).isRequired,
   equipamientos: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      nombre: PropTypes.string.isRequired
+      nombre: PropTypes.string.isRequired,
     })
   ).isRequired,
   handleInputChange: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
 };
 
 export default FilterForm;

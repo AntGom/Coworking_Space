@@ -129,10 +129,7 @@ function SpaceDetail() {
             </h3>
             <p className="text-gray-600">{space.direccion}</p>
           </div>
-          <div>
-            <h3 className="text-lg font-semibold text-gray-700 mb-1">Estado</h3>
-            <p className="text-gray-600">{space.estado}</p>
-          </div>
+
           <div>
             <h3 className="text-lg font-semibold text-gray-700 mb-1">
               Equipamientos
@@ -147,7 +144,7 @@ function SpaceDetail() {
               )}
             </ul>
           </div>
-          <div>
+          <div className="flex flex-col items-center">
             <h3 className="text-lg font-semibold text-gray-700 mb-1">
               Valoración media
             </h3>

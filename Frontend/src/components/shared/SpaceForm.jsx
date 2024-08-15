@@ -21,7 +21,7 @@ const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
     precio_por_persona: "",
     precio_espacio_completo: "",
     direccion: "",
-    estado: "",
+    estado: "libre", // Valor predeterminado
   });
   const [categories, setCategories] = useState([]);
   const [message, setMessage] = useState("");
@@ -65,7 +65,7 @@ const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
             precio_por_persona: space.precio_por_persona,
             precio_espacio_completo: space.precio_espacio_completo,
             direccion: space.direccion,
-            estado: space.estado,
+            estado: space.estado || "libre", // Si el estado es null o undefined, asigna "libre"
           });
 
           const photoDetails = space.imagenes.map((image) => ({
@@ -144,7 +144,7 @@ const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
       precio_por_persona: "",
       precio_espacio_completo: "",
       direccion: "",
-      estado: "",
+      estado: "libre", // Reinicia a "libre" al resetear el formulario
     });
     onPhotosChange([]);
   };
@@ -246,22 +246,7 @@ const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </label>
-        <label>
-          Estado:
-          <select
-            name="estado"
-            value={formState.estado}
-            onChange={handleInputChange}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="" disabled>
-              Selecciona un estado
-            </option>
-            <option value="libre">Libre</option>
-            <option value="reservado">Reservado</option>
-          </select>
-        </label>
+        
         <label>
           Fotos:
           <input
