@@ -5,9 +5,6 @@ const postNewVote = async (usuario_id, espacio_id, value, reserva_id) => {
     if (!usuario_id || !espacio_id || value === undefined || !reserva_id) {
         throw new Error('Todos los campos son obligatorios.');
     }
-    if (value < 1 || value > 5) {
-        throw new Error('La valoración debe estar entre 1 y 5.');
-    }
 
     try {
         // Verificar si ya existe una votación para este usuario y reserva.
