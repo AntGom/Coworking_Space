@@ -24,24 +24,26 @@ const NewMessage = ({ incidentId, onMessageSent }) => {
     }
   };
 
-  const handleHide = () => {
-    onMessageSent();  
-  };
-
   return (
-    <form onSubmit={handleSubmit} className="mt-4">
-      <textarea
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        className="w-full p-2 border border-gray-300 rounded"
-        placeholder="Escribe tu mensaje aquí..."
-      />
-      <div className="flex justify-between mt-2 gap-4"> {/* Añadido gap-4 para espacio */}
-        <button type="submit" className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded">
-          Enviar Mensaje
-        </button>
-        <button type="button" onClick={handleHide} className="px-4 py-2 bg-gray-500 hover:bg-gray-700 text-white rounded">
-          Ocultar
+    <form 
+      onSubmit={handleSubmit} 
+      className="fixed bottom-0 left-0 w-full bg-white p-4 border-t border-gray-300"
+      style={{ zIndex: 1000 }}
+    >
+      <div className="flex items-center gap-2">
+        <textarea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className="flex-1 p-2 border border-gray-300 rounded"
+          placeholder="Escribe tu mensaje aquí..."
+          rows={1}
+          style={{ resize: 'none' }}
+        />
+        <button 
+          type="submit" 
+          className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded"
+        >
+          Enviar
         </button>
       </div>
     </form>
