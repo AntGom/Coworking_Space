@@ -1,6 +1,10 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import axios from 'axios';
+import { io } from 'socket.io-client';
+
+// Conexión a Socket.IO
+const socket = io("http://localhost:8000"); // Asegúrate de que apunte al puerto correcto del servidor
 
 const NewMessage = ({ incidentId, onMessageSent }) => {
   const [message, setMessage] = useState('');
@@ -9,7 +13,7 @@ const NewMessage = ({ incidentId, onMessageSent }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`/api/incidents/postmessage`, {
+      const response = await axios.post(`/api/incidents/postmessage`, {
         incidencia_id: incidentId,
         mensaje: message,
       }, {
@@ -17,6 +21,19 @@ const NewMessage = ({ incidentId, onMessageSent }) => {
           Authorization: token,
         },
       });
+
+      const newMessage = response.data;
+      const currentDate = new Date();
+
+      // Emite el evento 'sendMessage' con el nuevo mensaje
+      socket.emit('sendMessage', {
+        mensaje_id: newMessage.messageId,
+        incidencia_id: incidentId,
+        mensaje: message,
+        fecha_creacion: currentDate.toLocaleDateString().replace(/\//g, '-'),
+        hora_creacion: currentDate.toLocaleTimeString(),
+      });
+
       setMessage('');
       onMessageSent(); 
     } catch (err) {
@@ -41,7 +58,7 @@ const NewMessage = ({ incidentId, onMessageSent }) => {
         />
         <button 
           type="submit" 
-          className="px-4 py-2 bg-blue-500 hover:bg-blue-700 text-white rounded"
+          className="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded"
         >
           Enviar
         </button>

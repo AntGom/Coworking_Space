@@ -1,10 +1,14 @@
+import { useCallback, useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
-import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NewMessage from "./NewMessage.jsx";
-import {jwtDecode} from "jwt-decode";
+import { io } from "socket.io-client";
+import { jwtDecode } from "jwt-decode";
+
+// Conexión a Socket.IO
+const socket = io("http://localhost:8000"); // Apuntamos al puerto correcto del servidor.
 
 // Función para obtener el ID del usuario logueado desde el token.
 const getUserIdFromToken = () => {
@@ -26,31 +30,13 @@ const MessagesPage = () => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
 
-  // Obtiene el ID del usuario logueado
+  // Obtiene el ID del usuario logueado.
   const currentUserId = getUserIdFromToken();
 
   const bottomRef = useRef(null);
 
-  useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const response = await axios.get(`/api/incidents/messages/${id}`, {
-          headers: {
-            Authorization: token,
-          },
-        });
-        setMessages(response.data);
-        setLoading(false);
-      } catch (err) {
-        toast.error("Hubo un error al obtener los mensajes");
-        setLoading(false);
-      }
-    };
-
-    fetchMessages();
-  }, [id, token]);
-
-  const handleNewMessageSent = async () => {
+  // Función para obtener mensajes desde la API.
+  const fetchMessages = useCallback(async () => {
     try {
       const response = await axios.get(`/api/incidents/messages/${id}`, {
         headers: {
@@ -58,11 +44,32 @@ const MessagesPage = () => {
         },
       });
       setMessages(response.data);
+      setLoading(false);
     } catch (err) {
-      console.error(
-        "Error al obtener los mensajes después de enviar uno nuevo:",
-        err
-      );
+      toast.error("Hubo un error al obtener los mensajes");
+      setLoading(false);
+    }
+  }, [id, token]);
+
+  useEffect(() => {
+    fetchMessages();
+
+    // Configuración de Socket.IO para recibir mensajes en tiempo real.
+    socket.on("receiveMessage", (newMessage) => {
+      console.log('Mensaje recibido del servidor:', newMessage); // Verifica que el mensaje se reciba en el cliente.
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+    });
+
+    return () => {
+      socket.off("receiveMessage");
+    };
+  }, [fetchMessages]);
+
+  const handleNewMessageSent = async () => {
+    try {
+      await fetchMessages(); // Refrescar mensajes después de enviar uno nuevo.
+    } catch (err) {
+      console.error("Error al obtener los mensajes después de enviar uno nuevo:", err);
       toast.error("Hubo un error al actualizar los mensajes");
     }
   };
