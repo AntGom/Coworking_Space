@@ -41,7 +41,7 @@ function Activate() {
       <div
         className="absolute inset-0 bg-cover bg-center filter blur-lg"
         style={{
-          backgroundImage: "url('../../../../public/fondo_oficina.jpg')",
+          backgroundImage: "url('/fondo_oficina.jpg')",
         }}
       ></div>
       <div className="absolute inset-0 bg-black opacity-50"></div>

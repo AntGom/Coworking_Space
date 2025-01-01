@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState(null);
+  console.log(userData)
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;

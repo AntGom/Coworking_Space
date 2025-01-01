@@ -7,7 +7,7 @@ function Footer() {
         {/* Logo Section */}
         <div className="flex items-center mb-4 sm:mb-0">
           <img
-            src="../../../../public/logocoworkingrgb.png" // Ruta de tu logo
+            src="/logocoworkingrgb.png" // Ruta de tu logo
             alt="Logo"
             className="h-12 mr-3"
           />

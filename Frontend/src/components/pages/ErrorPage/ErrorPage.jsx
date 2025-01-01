@@ -9,7 +9,7 @@ function ErrorPage() {
       {/* <h1 className="text-3xl font-bold text-gray-800 mb-4">¡Ups! Algo Salio Mal</h1> */}
       <div className="mb-4">
         <img 
-          src="../../../../public/ErrorPage3.png" 
+          src="/ErrorPage3.png" 
           alt="Person exiting building" 
           className="w-[650px] h-[650px]"
         />

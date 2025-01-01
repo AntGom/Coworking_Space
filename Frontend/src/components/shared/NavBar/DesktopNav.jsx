@@ -66,7 +66,7 @@ function DesktopNav() {
                   >
                     <img
                       title="Espacios"
-                      src="../../../../public/logo_espacios_white.jpg"
+                      src="/logo_espacios_white.jpg"
                       alt="Admin Icon"
                       className="h-11 w-11"
                     />
@@ -78,7 +78,7 @@ function DesktopNav() {
                         className="flex px-4 py-2 hover:bg-gray-200"
                       >
                         <img
-                          src="../../../../public/crear_espacios_black.png"
+                          src="/crear_espacios_black.png"
                           alt="Crear espacios"
                           className="h-8 w-8 mr-2"
                         />
@@ -89,7 +89,7 @@ function DesktopNav() {
                         className="flex  px-4 py-2 hover:bg-gray-200"
                       >
                         <img
-                          src="../../../../public/logo_ver_espacios_black.png"
+                          src="/logo_ver_espacios_black.png"
                           alt="Ver Espacios"
                           className="h-8 w-8 mr-2"
                         />
@@ -101,7 +101,7 @@ function DesktopNav() {
                       >
                         <img
                           title="Busqueda Avanzada"
-                          src="../../../../public/logo_lupa_black.png"
+                          src="/logo_lupa_black.png"
                           alt="Admin Icon"
                           className="h-8 w-8 mr-2"
                         />
@@ -117,7 +117,7 @@ function DesktopNav() {
                   >
                     <img
                       title="Reservas"
-                      src="../../../../public/reservas_white.png"
+                      src="/reservas_white.png"
                       alt="Admin Icon"
                       className="h-11 w-11"
                     />
@@ -130,7 +130,7 @@ function DesktopNav() {
                       >
                         <img
                       title="Reservas"
-                      src="../../../../public/ver_reservas_black.png"
+                      src="/ver_reservas_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-2"
                     />
@@ -141,7 +141,7 @@ function DesktopNav() {
                         className="flex px-4 py-2 hover:bg-gray-200"
                       >
                         <img
-                      src="../../../../public/ver_incidencias_black.png"
+                      src="/ver_incidencias_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-2"
                     />
@@ -152,7 +152,7 @@ function DesktopNav() {
                         className="flex px-4 py-2 hover:bg-gray-200"
                       >
                         <img
-                          src="../../../../public/reserva_pendiente_black.png"
+                          src="/reserva_pendiente_black.png"
                           alt="Admin Icon"
                           className="h-8 w-8 mr-2"
                         />
@@ -164,7 +164,7 @@ function DesktopNav() {
                 <Link to="/user/profile" className="hover:text-gray-400 focus:outline-none">
                   <img
                     title="Perfil de Usuario"
-                    src="../../../../public/iconoPerfUser.png"
+                    src="/iconoPerfUser.png"
                     alt="Profile Icon"
                     className="h-11 w-11"
                   />
@@ -175,7 +175,7 @@ function DesktopNav() {
                   }}>
                   <img
                     title="Logout"
-                    src="../../../../public/logo_logout.png"
+                    src="/logo_logout.png"
                     alt="Logout Icon"
                     className="h-11 w-11"
                   />
@@ -190,7 +190,7 @@ function DesktopNav() {
                   >
                     <img
                       title="Espacios"
-                      src="../../../../public/logo_espacios_white.jpg"
+                      src="/logo_espacios_white.jpg"
                       alt="Admin Icon"
                       className="h-11 w-11"
                     />
@@ -203,7 +203,7 @@ function DesktopNav() {
                       >
                         <img
                           title="Espacios"
-                          src="../../../../public/logo_ver_espacios_black.png"
+                          src="/logo_ver_espacios_black.png"
                           alt="Admin Icon"
                           className="h-8 w-8 mr-2"
                         />
@@ -215,7 +215,7 @@ function DesktopNav() {
                       >
                         <img
                           title="Busqueda Avanzada"
-                          src="../../../../public/logo_lupa_black.png"
+                          src="/logo_lupa_black.png"
                           alt="Admin Icon"
                           className="h-8 w-8 mr-2"
                         />
@@ -231,7 +231,7 @@ function DesktopNav() {
                   >
                     <img
                       title="Reservas"
-                      src="../../../../public/reservas_white.png"
+                      src="/reservas_white.png"
                       alt="Admin Icon"
                       className="h-11 w-11"
                     />
@@ -244,7 +244,7 @@ function DesktopNav() {
                       >
                         <img
                       title="Reservas"
-                      src="../../../../public/ver_reservas_black.png"
+                      src="/ver_reservas_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-2"
                     />
@@ -255,7 +255,7 @@ function DesktopNav() {
                         className="flex px-4 py-2 hover:bg-gray-200"
                       >
                         <img
-                      src="../../../../public/ver_incidencias_black.png"
+                      src="/ver_incidencias_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-2"
                     />
@@ -267,7 +267,7 @@ function DesktopNav() {
                 <Link to="/user/profile" className="hover:text-gray-400 focus:outline-none">
                   <img
                     title="Perfil de Usuario"
-                    src="../../../../public/iconoPerfUser.png"
+                    src="/iconoPerfUser.png"
                     alt="Perfil de Usuario"
                     className="h-11 w-11"
                   />
@@ -278,7 +278,7 @@ function DesktopNav() {
                   }}>
                   <img
                     title="Logout"
-                    src="../../../../public/logo_logout.png"
+                    src="/logo_logout.png"
                     alt="Logout Icon"
                     className="h-11 w-11"
                   />
@@ -293,7 +293,7 @@ function DesktopNav() {
               >
                 <img
                   title="Busqueda Avanzada"
-                  src="../../../../public/logo_lupa_white.png"
+                  src="/logo_lupa_white.png"
                   alt="Admin Icon"
                   className="h-11 w-11"
                 />
@@ -304,7 +304,7 @@ function DesktopNav() {
               >
                 <img
                   title="Espacios Disponibles"
-                  src="../../../../public/logo_ver_espacios_white.jpg"
+                  src="/logo_ver_espacios_white.jpg"
                   alt="Espacios Disponibles"
                   className="h-11 w-11"
                 />
@@ -316,7 +316,7 @@ function DesktopNav() {
                 >
                   <img
                     title="Account"
-                    src="../../../../public/iconoPerfUser.png"
+                    src="/iconoPerfUser.png"
                     alt="Perfil de Usuario"
                     className="h-11 w-11"
                   />
@@ -328,7 +328,7 @@ function DesktopNav() {
                       className=" flex px-4 py-2 hover:bg-gray-200"
                     >
                       <img
-                      src="../../../../public/iniciar-sesion.png"
+                      src="/iniciar-sesion.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-3"
                     />
@@ -339,7 +339,7 @@ function DesktopNav() {
                       className=" flex px-4 py-2 hover:bg-gray-200"
                     >
                       <img
-                      src="../../../../public/agregar.png"
+                      src="/agregar.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-3"
                     />

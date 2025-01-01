@@ -58,7 +58,7 @@ function MobileNav() {
                 <>
                   <Link to="/space/create-space" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
-                      src="../../../../public/crear_espacios_black.png"
+                      src="/crear_espacios_black.png"
                       alt="Crear espacios"
                       className="h-8 w-8 mr-2"
                     />
@@ -66,7 +66,7 @@ function MobileNav() {
                   </Link>
                   <Link to="/space/spaces" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
-                      src="../../../../public/logo_ver_espacios_black.png"
+                      src="/logo_ver_espacios_black.png"
                       alt="Ver Espacios"
                       className="h-8 w-8 mr-2"
                     />
@@ -75,7 +75,7 @@ function MobileNav() {
                   <Link to="/space/filter-spaces" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
                       title="Busqueda Avanzada"
-                      src="../../../../public/logo_lupa_black.png"
+                      src="/logo_lupa_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-2"
                     />
@@ -83,7 +83,7 @@ function MobileNav() {
                   </Link>
                   <Link to="/user/adminBookings" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
-                      src="../../../../public/reserva_pendiente_black.png"
+                      src="/reserva_pendiente_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-2"
                     />
@@ -92,7 +92,7 @@ function MobileNav() {
                   <Link to="/user/my-bookings" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
                       title="Reservas"
-                      src="../../../../public/ver_reservas_black.png"
+                      src="/ver_reservas_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-2"
                     />
@@ -100,7 +100,7 @@ function MobileNav() {
                   </Link>
                   <Link to="/user/incident-list" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
-                      src="../../../../public/ver_incidencias_black.png"
+                      src="/ver_incidencias_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-2"
                     />
@@ -108,7 +108,7 @@ function MobileNav() {
                   </Link>
                   <Link to="/user/profile" className="hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
-                      src="../../../../public/iconoPerfUser.png"
+                      src="/iconoPerfUser.png"
                       alt="Profile Icon"
                       className="h-7 w-7 inline mr-2"
                     />
@@ -123,7 +123,7 @@ function MobileNav() {
                     }}
                   >
                     <img
-                      src="../../../../public/logo_logout_black.png"
+                      src="/logo_logout_black.png"
                       alt="Logout Icon"
                       className="h-8 w-8 inline mr-2"
                     />
@@ -135,7 +135,7 @@ function MobileNav() {
                   <Link to="/user/my-bookings" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
                       title="Reservas"
-                      src="../../../../public/ver_reservas_black.png"
+                      src="/ver_reservas_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-2"
                     />
@@ -143,7 +143,7 @@ function MobileNav() {
                   </Link>
                   <Link to="/user/incident-list" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
-                      src="../../../../public/ver_incidencias_black.png"
+                      src="/ver_incidencias_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-2"
                     />
@@ -151,7 +151,7 @@ function MobileNav() {
                   </Link>
                   <Link to="/space/spaces" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
-                      src="../../../../public/logo_ver_espacios_black.png"
+                      src="/logo_ver_espacios_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-3"
                     />
@@ -159,7 +159,7 @@ function MobileNav() {
                   </Link>
                   <Link to="/space/filter-spaces" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
-                      src="../../../../public/logo_lupa_black.png"
+                      src="/logo_lupa_black.png"
                       alt="Admin Icon"
                       className="h-8 w-8 mr-3"
                     />
@@ -167,7 +167,7 @@ function MobileNav() {
                   </Link>
                   <Link to="/user/profile" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                     <img
-                      src="../../../../public/iconoPerfUser.png"
+                      src="/iconoPerfUser.png"
                       alt="Profile Icon"
                       className="h-8 w-8 inline mr-2"
                     />
@@ -182,7 +182,7 @@ function MobileNav() {
                     }}
                   >
                     <img
-                      src="../../../../public/logo_logout_black.png"
+                      src="/logo_logout_black.png"
                       alt="Logout Icon"
                       className="h-8 w-8 inline mr-2"
                     />
@@ -194,7 +194,7 @@ function MobileNav() {
               <>
                 <Link to="/auth/login" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                   <img
-                    src="../../../../public/iniciar-sesion.png"
+                    src="/iniciar-sesion.png"
                     alt="Admin Icon"
                     className="h-8 w-8 mr-3"
                   />
@@ -202,7 +202,7 @@ function MobileNav() {
                 </Link>
                 <Link to="/auth/register" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                   <img
-                    src="../../../../public/agregar.png"
+                    src="/agregar.png"
                     alt="Admin Icon"
                     className="h-8 w-8 mr-3"
                   />
@@ -210,7 +210,7 @@ function MobileNav() {
                 </Link>
                 <Link to="/space/spaces" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                   <img
-                    src="../../../../public/logo_ver_espacios_black.png"
+                    src="/logo_ver_espacios_black.png"
                     alt="Admin Icon"
                     className="h-8 w-8 mr-3"
                   />
@@ -218,7 +218,7 @@ function MobileNav() {
                 </Link>
                 <Link to="/space/filter-spaces" className="flex hover:bg-gray-200 p-2 rounded" onClick={handleMenuToggle}>
                   <img
-                    src="../../../../public/logo_lupa_black.png"
+                    src="/logo_lupa_black.png"
                     alt="Admin Icon"
                     className="h-8 w-8 mr-3"
                   />

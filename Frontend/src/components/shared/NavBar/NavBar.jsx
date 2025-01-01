@@ -49,7 +49,7 @@ const handleScroll = () => {
       <div className="container mx-auto flex justify-between items-center px-4 sm:px-6 lg:px-8">
         <div className="flex items-center">
           <img
-            src="../../../../public/logocoworkingrgb.png"
+            src="/logocoworkingrgb.png"
             alt="logo"
             className="h-12 w-auto object-contain rounded-md shadow-sm cursor-pointer"
             onClick={() => navigate('/')}

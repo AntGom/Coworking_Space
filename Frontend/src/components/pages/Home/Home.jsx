@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 
 function Home() {
   const cards = [
-    { title: "Oficinas Privadas", image: "../../../../public/oficina-privada.jpg", hoverText: "Oficinas privadas equipadas con todo lo necesario para tu productividad", link: "/oficinas-privadas" },
-    { title: "Salas de Reuniones", image: "../../../../public/sala_runiones.jpg", hoverText: "Nuestras salas reuniones estan preparadas para adaptarse a tu necesidad" },
-    { title: "Salas de Conferencias", image: "../../../../public/sala-de-conferencias.jpg", hoverText: "Salas de conferencias ideales para tus presentaciones y eventos"},
-    { title: "Espacios para Eventos", image: "../../../../public/espacio-eventos.png", hoverText: "Espacios versátiles para cualquier tipo de evento"},
-    { title: "Coworking", image: "../../../../public/foto-coworking.jpeg", hoverText: "Áreas de coworking diseñadas para fomentar la colaboración y la creatividad" },
-    { title: "Áreas de descanso", image: "../../../../public/descanso-oficinas.jpg", hoverText: "Zonas de descanso cómodas para relajarte y recargar energías",  }
+    { title: "Oficinas Privadas", image: "/oficina-privada.jpg", hoverText: "Oficinas privadas equipadas con todo lo necesario para tu productividad", link: "/oficinas-privadas" },
+    { title: "Salas de Reuniones", image: "/sala_runiones.jpg", hoverText: "Nuestras salas reuniones estan preparadas para adaptarse a tu necesidad" },
+    { title: "Salas de Conferencias", image: "/sala-de-conferencias.jpg", hoverText: "Salas de conferencias ideales para tus presentaciones y eventos"},
+    { title: "Espacios para Eventos", image: "/espacio-eventos.png", hoverText: "Espacios versátiles para cualquier tipo de evento"},
+    { title: "Coworking", image: "/foto-coworking.jpeg", hoverText: "Áreas de coworking diseñadas para fomentar la colaboración y la creatividad" },
+    { title: "Áreas de descanso", image: "/descanso-oficinas.jpg", hoverText: "Zonas de descanso cómodas para relajarte y recargar energías",  }
   ];
 
   return (
@@ -20,7 +20,7 @@ function Home() {
           muted
           playsInline
         >
-          <source src="./public/Coworking_Home_Promocional.mp4" type="video/mp4" />
+          <source src="/Coworking_Home_Promocional.mp4" type="video/mp4" />
           Tu navegador no soporta el elemento de video.
         </video>
       </div>
