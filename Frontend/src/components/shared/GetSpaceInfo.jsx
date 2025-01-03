@@ -15,8 +15,7 @@ function SpacesList() {
       try {
         const response = await axios.get(`/api/spaces`);
         if (response.data && Array.isArray(response.data.data)) {
-          const sortedSpaces = response.data.data.sort((a, b) => b.id - a.id);
-          setSpaces(sortedSpaces);
+          setSpaces(response.data.data); // El backend ya devuelve los datos ordenados
         } else {
           console.error("Error en el formato de la data:", response.data);
           setSpaces([]);
