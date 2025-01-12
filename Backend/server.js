@@ -8,8 +8,8 @@ import corsMiddleware from './src/middlewares/cors.js';
 import { PORT } from './env.js';
 import './src/services/updateStatusService.js';
 import path from 'path';
-import { createServer } from 'http';  // Importar http
-import { Server } from 'socket.io';  // Importar Socket.IO
+import { createServer } from 'http';
+import { Server } from 'socket.io';
 
 const app = express();
 
@@ -19,7 +19,7 @@ const server = createServer(app);
 // Configurar Socket.IO.
 const io = new Server(server, {
     cors: {
-        origin: "*", // Configurar para permitir solicitudes desde cualquier origen.
+        origin: "*",
         methods: ["GET", "POST"],
     },
 });
@@ -32,8 +32,8 @@ io.on('connection', (socket) => {
     });
 
     socket.on('sendMessage', (message) => {
-        console.log('Mensaje recibido del cliente:', message); // Verifica que el mensaje se reciba en el servidor.
-        io.emit('receiveMessage', message); // Emite el mensaje a todos los clientes conectados.
+        console.log('Mensaje recibido del cliente:', message); 
+        io.emit('receiveMessage', message);
     });
 });
 
@@ -48,7 +48,7 @@ app.use(corsMiddleware);
 // Middleware Morgan-> info de la solicitud.
 app.use(morgan('dev'));
 
-// Middlewares Pareso del body de la petición.
+// Middlewares Parseo del body de la petición.
 app.use(express.json()); // Convierte solicitudes json->objeto y asigna a req.body.
 app.use(express.urlencoded({ extended: true })); // Convierte solicitudes formularios.html->objeto y asigna a req.body.
 app.use(fileUpload()); // -> carga de archivos con express.
