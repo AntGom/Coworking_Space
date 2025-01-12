@@ -5,12 +5,12 @@ import routes from './src/routes/index.js';
 import notFound from './src/middlewares/notFound.js';
 import errorHandler from './src/middlewares/errorHandler.js';
 import corsMiddleware from './src/middlewares/cors.js';
-import { PORT } from './env.js';
 import './src/services/updateStatusService.js';
 import path from 'path';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
+// Configurar la aplicación express.
 const app = express();
 
 // Crear servidor HTTP.
@@ -32,7 +32,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('sendMessage', (message) => {
-        console.log('Mensaje recibido del cliente:', message); 
+        console.log('Mensaje recibido del cliente:', message);
         io.emit('receiveMessage', message);
     });
 });
@@ -63,6 +63,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Ponemos el servidor a escuchar en un puerto obtenido de una variable de entorno
+const PORT = process.env.PORT || 47197;  // Usar el puerto asignado por Render o el predeterminado
 server.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
