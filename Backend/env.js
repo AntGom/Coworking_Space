@@ -4,6 +4,7 @@ dotenv.config();
 const {
     PORT,
     DB_HOST,
+    DB_PORT,
     DB_USER,
     DB_PASSWORD,
     DB_NAME,
@@ -20,6 +21,7 @@ const {
 export {
     PORT,
     DB_HOST,
+    DB_PORT,
     DB_USER,
     DB_PASSWORD,
     DB_NAME,
