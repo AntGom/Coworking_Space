@@ -56,6 +56,16 @@ app.use(fileUpload()); // -> carga de archivos con express.
 //!-> Registro de directorio rutas.
 app.use('/api', routes);
 
+// Ruta base para verificar que el servidor está funcionando
+app.get('/', (req, res) => {
+    res.send('Servidor funcionando correctamente');
+});
+
+// Ruta HEAD para solicitudes básicas de verificación
+app.head('/', (req, res) => {
+    res.status(200).end();
+});
+
 // Middleware para manejar rutas no encontradas (404)
 app.use(notFound);
 
