@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import usePreventNumberInputScroll from "../../hooks/UsePreventScrollNumber.jsx";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = 'https://coworking-space-back.onrender.com/uploads/';
 
 const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
   const { isAdmin } = useAuth();

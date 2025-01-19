@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const SpaceCard = ({ espacio }) => {
   const navigate = useNavigate();
-  const BASE_URL = import.meta.env.VITE_API_URL;
+  const BASE_URL =' https://coworking-space-back.onrender.com/uploads/';
   const imageUrl = `${BASE_URL}/${espacio.imagen}`;
 
   const goToSpace = (id) => {

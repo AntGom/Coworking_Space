@@ -8,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState(null);
-  console.log(userData)
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -63,8 +62,8 @@ const Profile = () => {
   if (!userData) return <div>No se encontraron datos del usuario</div>;
 
   const avatarUrl = userData.avatar
-    ? `${apiUrl}/${userData.avatar}`
-    : "/avatarDefault.png";
+  ? `${apiUrl.replace("/api", "")}/uploads/${userData.avatar}`
+  : "/avatarDefault.png";
 
   return (
     <div className="p-6 bg-gray-100 rounded-lg ">

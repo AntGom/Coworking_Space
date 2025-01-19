@@ -9,13 +9,14 @@ function SpacesList() {
   const navigate = useNavigate();
   const { isAdmin } = useAuth();
   const apiUrl = import.meta.env.VITE_API_URL;
+ const imageUrl = 'https://coworking-space-back.onrender.com/uploads/';
 
   useEffect(() => {
     const fetchSpaces = async () => {
       try {
         const response = await axios.get(`/api/spaces`);
         if (response.data && Array.isArray(response.data.data)) {
-          setSpaces(response.data.data); // El backend ya devuelve los datos ordenados
+          setSpaces(response.data.data);
         } else {
           console.error("Error en el formato de la data:", response.data);
           setSpaces([]);
@@ -60,7 +61,7 @@ function SpacesList() {
                 <img
                   src={
                     space.imagen
-                      ? `${apiUrl}/${space.imagen}`
+                      ? `${imageUrl}/${space.imagen}`
                       : "https://via.placeholder.com/300x200"
                   }
                   alt={space.imagen}

@@ -11,7 +11,7 @@ function SpaceDetail() {
   const [space, setSpace] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const imageUrl = 'https://coworking-space-back.onrender.com/uploads/';
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -83,7 +83,7 @@ function SpaceDetail() {
             {space.imagenes.map((imagen, index) => (
               <div key={index} className="relative">
                 <img
-                  src={`${apiUrl}/${imagen.filename}`}
+                  src={`${imageUrl}/${imagen.filename}`}
                   alt={`Imagen ${index + 1}`}
                   className="w-full h-full object-cover rounded-lg"
                   onError={(e) =>
