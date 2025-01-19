@@ -21,7 +21,7 @@ const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
     precio_por_persona: "",
     precio_espacio_completo: "",
     direccion: "",
-    estado: "libre", // Valor predeterminado
+    estado: "libre",
   });
   const [categories, setCategories] = useState([]);
   const [message, setMessage] = useState("");
@@ -144,7 +144,7 @@ const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
       precio_por_persona: "",
       precio_espacio_completo: "",
       direccion: "",
-      estado: "libre", // Reinicia a "libre" al resetear el formulario
+      estado: "libre",
     });
     onPhotosChange([]);
   };
