@@ -3,7 +3,11 @@ dotenv.config();
 
 const {
     PORT,
-    MYSQL_URL,
+    DB_HOST,
+    DB_PORT,
+    DB_USER,
+    DB_PASSWORD,
+    DB_NAME,
     SMTP_HOST,
     SMTP_PORT,
     SMTP_USER,
@@ -16,7 +20,11 @@ const {
 
 export {
     PORT,
-    MYSQL_URL,
+    DB_HOST,
+    DB_PORT,
+    DB_USER,
+    DB_PASSWORD,
+    DB_NAME,
     SMTP_HOST,
     SMTP_PORT,
     SMTP_USER,
