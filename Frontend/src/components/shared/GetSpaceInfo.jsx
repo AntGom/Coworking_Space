@@ -9,12 +9,12 @@ function SpacesList() {
   const navigate = useNavigate();
   const { isAdmin } = useAuth();
   const apiUrl = import.meta.env.VITE_API_URL;
- const imageUrl = 'https://coworking-space-back.onrender.com/uploads/';
+ const imageUrl = 'https://coworking-space-back.onrender.com/uploads';
 
   useEffect(() => {
     const fetchSpaces = async () => {
       try {
-        const response = await axios.get(`/api/spaces`);
+        const response = await axios.get(`${apiUrl}/spaces`);
         if (response.data && Array.isArray(response.data.data)) {
           setSpaces(response.data.data);
         } else {
