@@ -14,7 +14,7 @@ const newUserController = async (req, res, next) => {
         const registrationCode = randomstring.generate(30);
         const activationUrl = process.env.NODE_ENV === 'production'
     ? `${process.env.CLIENT_URL}/auth/activate`  //En producción
-    : `${process.env.CLIENT_URL_LOCAL}/auth/activate`;  //En local
+    : `$http://localhost:3000/auth/activate`;  //En local
 
         const emailSubject = 'Activación Cuenta Espacios Coworking';
         const emailBody = `

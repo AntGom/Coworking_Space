@@ -16,7 +16,6 @@ const {
     JWT_EXP,
     UPLOADS_DIR,
     CLIENT_URL,
-    CLIENT_URL_LOCAL,
 } = process.env;
 
 export {
@@ -34,5 +33,4 @@ export {
     JWT_EXP,
     UPLOADS_DIR,
     CLIENT_URL,
-    CLIENT_URL_LOCAL,
 };
