@@ -12,6 +12,8 @@ function PendingBookings() {
   const apiUrl = import.meta.env.VITE_API_URL;
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const imageUrl = 'https://coworking-space-back.onrender.com/uploads/';
+
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -114,7 +116,7 @@ function PendingBookings() {
                 {booking.espacio_nombre}
               </h3>
               <img
-                src={booking.espacio_imagen ? `${apiUrl}/${booking.espacio_imagen}` : "https://via.placeholder.com/300x200"}
+                src={booking.espacio_imagen ? `${imageUrl}/${booking.espacio_imagen}` : "https://via.placeholder.com/300x200"}
                 alt={booking.espacio_nombre}
                 className="w-20 h-20 rounded-lg object-cover"
               />

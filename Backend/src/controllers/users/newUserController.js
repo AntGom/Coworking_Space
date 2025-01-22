@@ -12,7 +12,9 @@ const newUserController = async (req, res, next) => {
         await validateSchema(newUserSchema, req.body);
 
         const registrationCode = randomstring.generate(30);
-        const activationUrl = `http://localhost:3000/auth/activate/`;
+        const activationUrl = process.env.NODE_ENV === 'production'
+    ? `${process.env.CLIENT_URL}/auth/activate`  //En producción
+    : `${process.env.CLIENT_URL_LOCAL}/auth/activate`;  //En local
 
         const emailSubject = 'Activación Cuenta Espacios Coworking';
         const emailBody = `
@@ -28,7 +30,6 @@ const newUserController = async (req, res, next) => {
 
         await userModel.insertUser(username, email, password, registrationCode);
 
-         console.log(registrationCode)
         // -> Ya se ha guardado el user en la DB (lo ha hecho el modelo). Ahora enviamos correo con el registrationCode.
         await sendMailUtil(email, emailSubject, emailBody);
 

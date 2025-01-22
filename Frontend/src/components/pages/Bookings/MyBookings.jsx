@@ -12,7 +12,7 @@ function MyBookings() {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
-  const apiUrl = import.meta.env.VITE_API_URL;
+  const imageUrl = 'https://coworking-space-back.onrender.com/uploads/';
 
   useEffect(() => {
     const fetchBookings = async () => {
@@ -150,7 +150,7 @@ function MyBookings() {
               <img
                 src={
                   booking.espacio_foto_name
-                    ? `${apiUrl}/${booking.espacio_foto_name}`
+                    ? `${imageUrl}/${booking.espacio_foto_name}`
                     : "https://via.placeholder.com/300x200"
                 }
                 alt={booking.espacio_nombre}

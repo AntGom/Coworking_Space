@@ -8,7 +8,7 @@ import { io } from "socket.io-client";
 import { jwtDecode } from "jwt-decode";
 
 // Conexión a Socket.IO
-const socket = io("http://localhost:8000"); // Apuntamos al puerto correcto del servidor.
+const socket = io(import.meta.env.VITE_API_URL || "http://localhost:8000");//Apuntar al puerto correcto del servidor.
 
 // Función para obtener el ID del usuario logueado desde el token.
 const getUserIdFromToken = () => {

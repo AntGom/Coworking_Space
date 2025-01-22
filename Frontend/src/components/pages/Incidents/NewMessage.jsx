@@ -4,7 +4,7 @@ import axios from 'axios';
 import { io } from 'socket.io-client';
 
 // Conexión a Socket.IO
-const socket = io("http://localhost:8000"); // Asegúrate de que apunte al puerto correcto del servidor
+const socket = io(import.meta.env.VITE_API_URL || "http://localhost:8000");//Apuntar al puerto correcto del servidor
 
 const NewMessage = ({ incidentId, onMessageSent }) => {
   const [message, setMessage] = useState('');
