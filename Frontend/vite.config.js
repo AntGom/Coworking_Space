@@ -8,7 +8,7 @@ export default defineConfig({
     open: true,
     proxy: {
       "/api": {
-        target: "http://localhost:47197", //Solo funciona en desarrollo
+        target: "http://localhost:47197",
         changeOrigin: true,
         secure: false,
       },
