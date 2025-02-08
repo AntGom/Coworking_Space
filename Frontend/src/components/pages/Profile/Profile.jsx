@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -17,16 +16,16 @@ const Profile = () => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem("token");
-      if (!token) throw new Error("Token no encontrado");
-
-      const response = await axios.get(`${apiUrl}/users/profile`, {
-        headers: { Authorization: token },
+      const response = await axios.get(`/api/users/profile`, {
+        headers: {
+          Authorization: token,
+        },
       });
 
       setUserData(response.data.data.user);
     } catch (error) {
       console.error("Error al obtener datos:", error);
-      toast.error("Error al obtener datos: " + (error.response?.data?.mensaje || "Inténtalo de nuevo"));
+      toast.error("Error al obtener datos: " + error.response.data.mensaje);
     } finally {
       setIsLoading(false);
     }
@@ -39,24 +38,19 @@ const Profile = () => {
       formData.append("avatar", file);
       try {
         const token = localStorage.getItem("token");
-        await axios.put(`${apiUrl}/users/avatar`, formData, {
+        await axios.put(`/api/users/avatar`, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: token,
           },
         });
-  
-        toast.success("Avatar actualizado correctamente");
-  
-        // 🔄 Recargar la página después de modificar el avatar
-        window.location.reload();
+        fetchUserData();
       } catch (error) {
         console.error("Error al subir el avatar:", error);
-        toast.error("Error al subir el avatar: " + error.response?.data?.mensaje);
+        toast.error("Error al subir el avatar: " + error.response.data.mensaje);
       }
     }
   };
-  
 
   useEffect(() => {
     if (userId) {
@@ -67,25 +61,26 @@ const Profile = () => {
   if (isLoading) return <div>Cargando...</div>;
   if (!userData) return <div>No se encontraron datos del usuario</div>;
 
-  const avatarUrl = userData?.avatar
-    ? `${apiUrl.replace("/api", "")}/uploads/${userData.avatar}`
-    : "/avatarDefault.png";
+  const avatarUrl = userData.avatar
+  ? `${apiUrl.replace("/api", "")}/uploads/${userData.avatar}`
+  : "/avatarDefault.png";
 
   return (
-    <div className="p-6 bg-gray-100 rounded-lg">
+    <div className="p-6 bg-gray-100 rounded-lg ">
       <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-lg shadow-md">
         <div className="flex justify-center mb-6">
-          <div className="relative w-24 h-24">
+          <div className="relative">
             <img
               src={avatarUrl}
-              alt="Avatar"
-              className="w-full h-full rounded-full object-cover border-2 border-gray-300 shadow-md"
+              alt={userData?.avatar || "Avatar"}
+              className="w-24 h-24 rounded-full object-cover"
             />
+
             <label
               htmlFor="avatar-upload"
               className="absolute bottom-0 right-0 bg-gray-200 text-black p-1 rounded-full cursor-pointer hover:bg-gray-400 transition duration-300"
             >
-              <FaEdit className="text-blue-600" title="Cambiar el avatar" />
+              <FaEdit className="text-blue" title="Cambiar el avatar" />
             </label>
             <input
               id="avatar-upload"
@@ -101,35 +96,51 @@ const Profile = () => {
         </h1>
         <div className="space-y-4">
           <p className="flex justify-between">
-            <span className="font-semibold text-gray-700">Nombre de usuario:</span>
-            <span className="text-gray-600">{userData?.username || "No disponible"}</span>
+            <span className="font-semibold text-gray-700">
+              Nombre de usuario:
+            </span>
+            <span className="text-gray-600">
+              {userData?.username || "No disponible"}
+            </span>
           </p>
           <p className="flex justify-between">
             <span className="font-semibold text-gray-700">Email:</span>
-            <span className="text-gray-600">{userData?.email || "No disponible"}</span>
+            <span className="text-gray-600">
+              {userData?.email || "No disponible"}
+            </span>
           </p>
           <p className="flex justify-between">
             <span className="font-semibold text-gray-700">Rol:</span>
-            <span className="text-gray-600">{userData?.role || "No disponible"}</span>
+            <span className="text-gray-600">
+              {userData?.role || "No disponible"}
+            </span>
           </p>
           <p className="flex justify-between">
-            <span className="font-semibold text-gray-700">Fecha de creación:</span>
-            <span className="text-gray-600">{userData?.createdAt || "No disponible"}</span>
+            <span className="font-semibold text-gray-700">
+              Fecha de creación:
+            </span>
+            <span className="text-gray-600">
+              {userData?.createdAt || "No disponible"}
+            </span>
           </p>
         </div>
         <div className="mt-6 flex justify-center space-x-4">
-          <button
-            onClick={() => navigate("/user/my-bookings")}
-            className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition duration-300"
-          >
-            Mis Reservas
-          </button>
-          <button
-            onClick={() => navigate("/auth/updatePass")}
-            className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
-          >
-            Cambiar Contraseña
-          </button>
+          <div>
+            <button
+              onClick={() => navigate("/user/my-bookings")}
+              className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition duration-300"
+            >
+              Mis Reservas
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => navigate("/auth/updatePass")}
+              className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
+            >
+              Cambiar Contraseña
+            </button>
+          </div>
         </div>
       </div>
     </div>
