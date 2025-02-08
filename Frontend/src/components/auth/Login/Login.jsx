@@ -16,12 +16,10 @@ const Login = () => {
     setFormState({ ...formState, [name]: value });
   };
 
-  const API_URL = import.meta.env.VITE_API_URL;
-
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const response = await axios.post(`${API_URL}/users/login`, formState);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("/api/users/login", formState);
 
       const { token } = response.data.data;
       const { id } = response.data.data.user;
