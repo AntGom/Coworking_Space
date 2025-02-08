@@ -14,12 +14,16 @@ const UpdateSpace = () => {
 
   const handleUpdateSubmit = async (id, formData, token, photos) => {
     try {
-      const response = await axios.put(`/api/spaces/${id}`, formData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const response = await axios.put(
+        `${import.meta.env.VITE_API_URL}/spaces/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
 
       if (response.status === 200 && response.data && response.data.data) {
         const spaceId = response.data.data.id;
@@ -62,11 +66,14 @@ const UpdateSpace = () => {
 
   const handleDeletePhoto = async (spaceId, photoId) => {
     try {
-      await axios.delete(`/api/spaces/${spaceId}/photos/${photoId}`, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/spaces/${spaceId}/photos/${photoId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
 
       setPhotos((prevPhotos) =>
         prevPhotos.filter((photo) => photo.id !== photoId)
@@ -83,12 +90,17 @@ const UpdateSpace = () => {
     const formData = new FormData();
     photos.forEach((file) => formData.append(`photo`, file));
     try {
-      await axios.post(`/api/spaces/${spaceId}/photos`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: token,
-        },
-      });
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/spaces/${spaceId}/photos`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: token,
+          },
+        }
+      );
+
       toast.success("Fotos subidas");
     } catch (error) {
       console.error("Error subiendo las fotos:", error);

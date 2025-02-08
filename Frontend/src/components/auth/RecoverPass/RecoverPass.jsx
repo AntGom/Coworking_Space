@@ -21,7 +21,8 @@ function RecoverPass() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const resp = await axios.post("/api/users/password/recover", credentials);
+      const resp = await axios.post(`${import.meta.env.VITE_API_URL}/users/password/recover`, credentials);
+
       console.log(resp);
       toast.success("Email de Recuperación enviado, revisa tu correo");
       setTimeout(() => {

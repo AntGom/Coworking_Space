@@ -30,14 +30,12 @@ function ResetPass() {
       );
       return;
     }
-    /* if (credentials.recoverPassCode !== "codigo_valido") {
-      toast.error(
-        "El código de recuperación no es válido. Por favor, verifica e intenta nuevamente."
-      );
-      return;
-    } */
+
     try {
-      const resp = await axios.put("/api/users/password/reset", credentials);
+      const resp = await axios.put(
+        `${import.meta.env.VITE_API_URL}/users/password/reset`,
+        credentials
+      );
       console.log(resp);
       toast.success("Recuperación de Contraseña Completa");
       setTimeout(() => {

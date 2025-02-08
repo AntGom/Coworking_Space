@@ -10,16 +10,29 @@ import path from 'path';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
-// Configurar la aplicación express.
+import mysql2 from 'mysql2/promise';
+import { MYSQL_URL } from './env.js';
+
+const testConnection = async () => {
+    try {
+        const pool = mysql2.createPool(MYSQL_URL);
+        const [rows] = await pool.query('SELECT 1');
+        console.log('Conexión exitosa:', rows);
+    } catch (error) {
+        console.error('Error al conectar a la base de datos:', error);
+    }
+};
+
+testConnection();
 const app = express();
 
-// Crear servidor HTTP.
+//Crear servidor HTTP.
 const server = createServer(app);
 
-// Configurar Socket.IO.
+//Configurar Socket.IO.
 const io = new Server(server, {
     cors: {
-        origin: process.env.CLIENT_URL || "http://localhost:3000",
+        origin: "*",
         methods: ["GET", "POST"],
     },
 });
@@ -37,7 +50,7 @@ io.on('connection', (socket) => {
     });
 });
 
-// Servir archivos estáticos desde la carpeta 'uploads'.
+//Servir archivos estáticos desde la carpeta 'uploads'.
 const PUBLIC_FOLDER = path.join(process.cwd(), 'uploads');
 app.use('/uploads', express.static(PUBLIC_FOLDER));
 
@@ -51,20 +64,27 @@ app.use(morgan('dev'));
 // Middlewares Parseo del body de la petición.
 app.use(express.json()); // Convierte solicitudes json->objeto y asigna a req.body.
 app.use(express.urlencoded({ extended: true })); // Convierte solicitudes formularios.html->objeto y asigna a req.body.
-app.use(fileUpload()); // -> carga de archivos con express.
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/',
+  }));
 
 //!-> Registro de directorio rutas.
+app.post('/api/test-upload', (req, res) => {
+    console.log('📂 Contenido de req.files en /test-upload:', req.files);
+    res.json({ files: req.files });
+});
+
 app.use('/api', routes);
 
-// Ruta base para verificar que el servidor está funcionando
-app.get('/', (req, res) => {
-    res.send('Servidor funcionando correctamente');
+app.head('/', (req, res) => {
+    res.status(200).end(); //Responde con 200-OK sin cuerpo
 });
 
-// Ruta HEAD para solicitudes básicas de verificación
-app.head('/', (req, res) => {
-    res.status(200).end();
+app.get('/', (req, res) => {
+    res.status(200).json({ message: 'Servidor funcionando correctamente 🚀' });
 });
+
 
 // Middleware para manejar rutas no encontradas (404)
 app.use(notFound);
@@ -73,7 +93,7 @@ app.use(notFound);
 app.use(errorHandler);
 
 // Ponemos el servidor a escuchar en un puerto obtenido de una variable de entorno
-const PORT = process.env.PORT || 47197;  // Usar el puerto asignado por Render o el predeterminado
+const PORT = process.env.PORT || 10000; // Usar el puerto asignado por Render o el predeterminado
 server.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });

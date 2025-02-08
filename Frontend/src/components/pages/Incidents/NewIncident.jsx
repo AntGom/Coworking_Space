@@ -8,6 +8,8 @@ function NewIncident() {
   const [categoriaIncidenciaId, setCategoriaIncidenciaId] = useState(""); // Inicialmente vacío
   const location = useLocation();
   const navigate = useNavigate();
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
 
   const { state } = location;
   const bookingId = state?.bookingId;
@@ -22,7 +24,7 @@ function NewIncident() {
 
     try {
       await axios.post(
-        `/api/incidents/create`,
+        `${BASE_URL}/incidents/create`,
         {
           reserva_id: bookingId,
           usuario_id: localStorage.getItem("userId"),

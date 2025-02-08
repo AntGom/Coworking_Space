@@ -3,11 +3,7 @@ dotenv.config();
 
 const {
     PORT,
-    DB_HOST,
-    DB_PORT,
-    DB_USER,
-    DB_PASSWORD,
-    DB_NAME,
+    MYSQL_URL,
     SMTP_HOST,
     SMTP_PORT,
     SMTP_USER,
@@ -16,16 +12,15 @@ const {
     JWT_EXP,
     UPLOADS_DIR,
     CLIENT_URL,
-    CLIENT_URL_LOCAL,
+    CORS_ORIGIN,
+    CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET,
+    CLOUDINARY_CLOUD_NAME,
 } = process.env;
 
 export {
     PORT,
-    DB_HOST,
-    DB_PORT,
-    DB_USER,
-    DB_PASSWORD,
-    DB_NAME,
+    MYSQL_URL,
     SMTP_HOST,
     SMTP_PORT,
     SMTP_USER,
@@ -34,5 +29,8 @@ export {
     JWT_EXP,
     UPLOADS_DIR,
     CLIENT_URL,
-    CLIENT_URL_LOCAL,
+    CORS_ORIGIN,
+    CLOUDINARY_API_KEY,
+    CLOUDINARY_API_SECRET,
+    CLOUDINARY_CLOUD_NAME,
 };

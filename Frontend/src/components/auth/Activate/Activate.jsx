@@ -18,7 +18,11 @@ function Activate() {
     e.preventDefault();
     if (registrationCode) {
       try {
-        const response = await axios.put(`/api/users/activate/${registrationCode}`);
+        const response = await axios.put(
+          `${
+            import.meta.env.VITE_API_URL
+          }/users/activate/${registrationCode}`
+        );
         if (response.data.status === "ok") {
           setActivationSuccess(true);
           setMessage("Cuenta activada con éxito");
@@ -49,7 +53,10 @@ function Activate() {
         {!activationSuccess ? (
           <form onSubmit={handleSubmit} className="w-full">
             <div className="mb-6">
-              <label htmlFor="registrationCode" className=" text-center block text-gray-700 font-bold mb-2">
+              <label
+                htmlFor="registrationCode"
+                className=" text-center block text-gray-700 font-bold mb-2"
+              >
                 Introduce tu Código de Registro
               </label>
               <input

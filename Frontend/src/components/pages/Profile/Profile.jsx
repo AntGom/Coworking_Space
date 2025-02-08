@@ -8,19 +8,22 @@ import "react-toastify/dist/ReactToastify.css";
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [userData, setUserData] = useState(null);
+  console.log(userData);
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
-  const apiUrl = import.meta.env.VITE_API_URL;
 
   const fetchUserData = async () => {
     setIsLoading(true);
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`/api/users/profile`, {
-        headers: {
-          Authorization: token,
-        },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/users/profile`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
 
       setUserData(response.data.data.user);
     } catch (error) {
@@ -38,12 +41,17 @@ const Profile = () => {
       formData.append("avatar", file);
       try {
         const token = localStorage.getItem("token");
-        await axios.put(`/api/users/avatar`, formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: token,
-          },
-        });
+        await axios.put(
+          `${import.meta.env.VITE_API_URL}/users/avatar`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: token,
+            },
+          }
+        );
+
         fetchUserData();
       } catch (error) {
         console.error("Error al subir el avatar:", error);
@@ -62,8 +70,11 @@ const Profile = () => {
   if (!userData) return <div>No se encontraron datos del usuario</div>;
 
   const avatarUrl = userData.avatar
-  ? `${apiUrl.replace("/api", "")}/uploads/${userData.avatar}`
+  ? (userData.avatar.startsWith("http") 
+      ? userData.avatar 
+      : `${import.meta.env.VITE_API_URL}/uploads/${userData.avatar}`)
   : "/avatarDefault.png";
+
 
   return (
     <div className="p-6 bg-gray-100 rounded-lg ">

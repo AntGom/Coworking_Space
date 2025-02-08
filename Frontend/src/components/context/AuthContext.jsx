@@ -15,7 +15,7 @@ export const AuthProvider = ({ children }) => {
 
   const fetchUserProfile = async (token) => {
     try {
-      const response = await axios.get("/api/users/profile", {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/users/profile`, {
         headers: { Authorization: token },
       });
 

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useEffect, useState, useRef } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -7,10 +8,11 @@ import NewMessage from "./NewMessage.jsx";
 import { io } from "socket.io-client";
 import { jwtDecode } from "jwt-decode";
 
-// Conexión a Socket.IO
-const socket = io(import.meta.env.VITE_API_URL || "http://localhost:8000");//Apuntar al puerto correcto del servidor.
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:10000";
 
-// Función para obtener el ID del usuario logueado desde el token.
+//Conexión Socket.IO
+let socket;
+
 const getUserIdFromToken = () => {
   const token = localStorage.getItem("token");
   if (!token) return null;
@@ -25,20 +27,20 @@ const getUserIdFromToken = () => {
 };
 
 const MessagesPage = () => {
-  const { id } = useParams(); // ID de la incidencia.
+  const { id } = useParams(); //ID incidencia
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
-  // Obtiene el ID del usuario logueado.
   const currentUserId = getUserIdFromToken();
 
   const bottomRef = useRef(null);
 
-  // Función para obtener mensajes desde la API.
+  //Obtener mensajes desde API
   const fetchMessages = useCallback(async () => {
     try {
-      const response = await axios.get(`/api/incidents/messages/${id}`, {
+      const response = await axios.get(`${BASE_URL}/incidents/messages/${id}`, {
         headers: {
           Authorization: token,
         },
@@ -54,20 +56,42 @@ const MessagesPage = () => {
   useEffect(() => {
     fetchMessages();
 
-    // Configuración de Socket.IO para recibir mensajes en tiempo real.
-    socket.on("receiveMessage", (newMessage) => {
-      console.log('Mensaje recibido del servidor:', newMessage); // Verifica que el mensaje se reciba en el cliente.
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
-    });
+    //Conectar a Socket.IO
+    const connectSocket = () => {
+      try {
+        socket = io(SOCKET_URL);
+        socket.on("connect", () => {
+          console.log("Conectado a Socket.IO en:", SOCKET_URL);
+        });
+
+        socket.on("receiveMessage", (newMessage) => {
+          console.log('Mensaje recibido del servidor:', newMessage);
+          setMessages((prevMessages) => [...prevMessages, newMessage]);
+        });
+
+        socket.on("connect_error", () => {
+          console.error("Error de conexión con el backend, intentando en el puerto 10000...");
+          socket = io("http://localhost:10000");
+        });
+      } catch (err) {
+        console.error("No se pudo conectar a Socket.IO:", err);
+        socket = io("http://localhost:10000");
+      }
+    };
+
+    connectSocket();
 
     return () => {
-      socket.off("receiveMessage");
+      if (socket) {
+        socket.off("receiveMessage");
+        socket.disconnect();
+      }
     };
   }, [fetchMessages]);
 
   const handleNewMessageSent = async () => {
     try {
-      await fetchMessages(); // Refrescar mensajes después de enviar uno nuevo.
+      await fetchMessages(); //Refrescar mensajes tras enviar uno nuevo.
     } catch (err) {
       console.error("Error al obtener los mensajes después de enviar uno nuevo:", err);
       toast.error("Hubo un error al actualizar los mensajes");

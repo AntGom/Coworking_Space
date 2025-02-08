@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 function MyBookings() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -12,12 +14,11 @@ function MyBookings() {
   const token = localStorage.getItem("token");
   const userId = localStorage.getItem("userId");
   const navigate = useNavigate();
-  const imageUrl = 'https://coworking-space-back.onrender.com/uploads/';
 
   useEffect(() => {
     const fetchBookings = async () => {
       try {
-        const response = await axios.get(`/api/bookings`, {
+        const response = await axios.get(`${BASE_URL}/bookings`, {
           headers: {
             Authorization: token,
           },
@@ -53,7 +54,7 @@ function MyBookings() {
 
     try {
       await axios.post(
-        `/api/ratings/create`,
+        `${BASE_URL}/ratings/create`,
         {
           value: value,
           reserva_id: bookingId,
@@ -90,7 +91,7 @@ function MyBookings() {
 
     try {
       const response = await axios.put(
-        `/api/bookings/cancel`,
+        `${BASE_URL}/bookings/cancel`,
         { reserva_id: bookingId },
         {
           headers: {
@@ -100,7 +101,9 @@ function MyBookings() {
       );
 
       if (response.status === 200) {
-        toast.success("Reserva cancelada correctamente");
+        toast.success(
+          "Reserva cancelada con éxito. Se ha enviado un correo de notificación."
+        );
         setBookings((prevBookings) =>
           prevBookings.map((booking) =>
             booking.id === bookingId
@@ -143,18 +146,18 @@ function MyBookings() {
             key={booking.id}
             className="bg-white rounded-lg shadow-md p-6 mb-4"
           >
-            <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center justify-between mb-">
               <h3 className="text-lg font-semibold text-gray-700 mr-4">
                 {booking.espacio_nombre}
               </h3>
               <img
                 src={
                   booking.espacio_foto_name
-                    ? `${imageUrl}/${booking.espacio_foto_name}`
-                    : "https://via.placeholder.com/300x200"
+                    ? `${booking.espacio_foto_name}`
+                    : "/no-image.webp"
                 }
                 alt={booking.espacio_nombre}
-                className="w-20 h-20 rounded-lg object-cover"
+                className="w-20 h-20 md:w-32 md:h-32 rounded-lg object-cover"
               />
             </div>
             <p className="text-sm text-gray-700 mb-2">

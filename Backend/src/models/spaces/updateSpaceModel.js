@@ -1,7 +1,7 @@
 import pool from '../../config/connection.js';
 
 const updateSpaceModel = async ({
-    id, // Se añade el id del espacio para actualizarlo
+    id, //id del espacio para actualizarlo
     nombre,
     descripcion,
     categoria_id,
@@ -27,10 +27,10 @@ const updateSpaceModel = async ({
         precio_espacio_completo,
         direccion,
         estado,
-        id, // Se añade el id
+        id,
     ]);
 
-    return result.affectedRows; // Devuelve el número de filas afectadas
+    return result.affectedRows;
 };
 
 export default updateSpaceModel;

@@ -4,13 +4,13 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [react()],
   server: {
-    port: 3000,
     open: true,
     proxy: {
       "/api": {
-        target: "http://localhost:47197", //Solo funciona en desarrollo
+        target: 'https://coworking-space-back.onrender.com/api',
         changeOrigin: true,
         secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ""),
       },
     },
   },

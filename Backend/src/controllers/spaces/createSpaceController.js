@@ -1,7 +1,6 @@
 import createSpaceModel from '../../models/spaces/createSpaceModel.js';
 import newSpaceSchema from '../../schema/spaceSchema/newSpaceSchema.js';
 
-// Controlador para crear un espacio.
 const createSpaceController = async (req, res, next) => {
     try {
         await newSpaceSchema.validateAsync(req.body);
@@ -23,7 +22,7 @@ const createSpaceController = async (req, res, next) => {
             !capacidad ||
             !precio_por_persona ||
             !precio_espacio_completo ||
-            !direccion,
+            !direccion ||
             !estado
         ) {
             return res.status(400).json({ message: 'Faltan datos necesarios' });
@@ -42,7 +41,6 @@ const createSpaceController = async (req, res, next) => {
             valoracion_media,
         });
 
-        //Enviamos respuesta al cliente.
         res.status(201).send({
             status: 'ok',
             data: {

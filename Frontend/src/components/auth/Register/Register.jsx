@@ -36,7 +36,8 @@ function Register() {
     }
     try {
       console.log("Registrando Usuario...");
-      const resp = await axios.post("/api/users/register", credentials);
+      const resp = await axios.post(`${import.meta.env.VITE_API_URL}/users/register`, credentials);
+
       console.log(resp);
       if (resp.status === 200) {
         toast.success(
@@ -47,7 +48,7 @@ function Register() {
         }, 2000);
       } else {
         toast.error(
-          "Hubo un problema con el registro" + error.response.data.mensaje
+          "Hubo un problema con el registro",
         );
       }
     } catch (error) {

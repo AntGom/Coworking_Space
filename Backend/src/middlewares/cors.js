@@ -1,4 +1,5 @@
 import cors from 'cors';
+import { CORS_ORIGIN } from '../../env.js';
 
 const corsOptions = {
     origin: '*',

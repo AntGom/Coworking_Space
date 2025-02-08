@@ -25,7 +25,7 @@ const SpaceFilterPage = () => {
   useEffect(() => {
     const fetchCategorias = async () => {
       try {
-        const response = await axios.get("/api/categories");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/categories`);
         setCategorias(response.data);
       } catch (error) {
         toast.error("Error al cargar categorías: " + error.message);
@@ -37,7 +37,7 @@ const SpaceFilterPage = () => {
   useEffect(() => {
     const fetchEquipamientos = async () => {
       try {
-        const response = await axios.get("/api/equipment");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/equipment`);
         setEquipamientos(response.data);
       } catch (error) {
         toast.error("Error al cargar equipamientos: " + error.message);
@@ -54,7 +54,7 @@ const SpaceFilterPage = () => {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const response = await axios.get("/api/spaces/filters", {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/spaces/filters`, {
         params: {
           ...filters,
           orderBy: filters.orderBy || 'id',

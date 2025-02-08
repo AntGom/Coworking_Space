@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const SpaceCard = ({ espacio }) => {
   const navigate = useNavigate();
-  const BASE_URL =' https://coworking-space-back.onrender.com/uploads/';
-  const imageUrl = `${BASE_URL}/${espacio.imagen}`;
+  const imageUrl = `${espacio.imagen}`;
 
   const goToSpace = (id) => {
     if (id) {
@@ -20,7 +19,7 @@ const SpaceCard = ({ espacio }) => {
       <div className="mb-4">
         <img
           src={
-            espacio.imagen ? imageUrl : "https://via.placeholder.com/300x200"
+            espacio.imagen ? imageUrl : "/no-image.webp"
           }
           alt={espacio.nombre}
           className="w-full h-48 rounded-lg object-cover"
@@ -73,7 +72,7 @@ const SpaceCard = ({ espacio }) => {
 
 SpaceCard.propTypes = {
   espacio: PropTypes.shape({
-    id: PropTypes.number.isRequired, // Asegúrate de incluir id aquí
+    id: PropTypes.number.isRequired,
     nombre: PropTypes.string.isRequired,
     descripcion: PropTypes.string.isRequired,
     categorias_nombre: PropTypes.string.isRequired,

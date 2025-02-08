@@ -9,12 +9,13 @@ function SpacesList() {
   const navigate = useNavigate();
   const { isAdmin } = useAuth();
   const apiUrl = import.meta.env.VITE_API_URL;
- const imageUrl = 'https://coworking-space-back.onrender.com/uploads';
 
   useEffect(() => {
     const fetchSpaces = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/spaces`);
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/spaces`
+        );
         if (response.data && Array.isArray(response.data.data)) {
           setSpaces(response.data.data);
         } else {
@@ -60,12 +61,15 @@ function SpacesList() {
               <div className="mb-4">
                 <img
                   src={
-                    space.imagen
-                      ? `${imageUrl}/${space.imagen}`
-                      : "https://via.placeholder.com/300x200"
+                    space.imagen?.startsWith("http")
+                      ? space.imagen
+                      : `${apiUrl}/uploads/${space.imagen || "default.png"}`
                   }
-                  alt={space.imagen}
+                  alt={space.nombre}
                   className="w-full h-48 rounded-lg object-cover"
+                  onError={(e) =>
+                    (e.target.src = "/no-image.webp")
+                  }
                 />
               </div>
 
@@ -88,7 +92,7 @@ function SpacesList() {
                   </h3>
                   <p className="text-gray-600">{space.categorias_nombre}</p>
                 </div>
-                
+
                 {/* Centrar Valoración y Estrellas */}
                 <div className="flex flex-col items-center mt-4">
                   <h3 className="text-lg font-semibold text-gray-700 mb-1">

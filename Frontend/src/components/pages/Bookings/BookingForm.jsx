@@ -3,6 +3,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import PropTypes from "prop-types";
 
+const BASE_URL = import.meta.env.VITE_API_URL;
+
 function BookingForm({ spaceId, onBookingSuccess }) {
   const [formData, setFormData] = useState({
     fecha_inicio: "",
@@ -30,7 +32,7 @@ function BookingForm({ spaceId, onBookingSuccess }) {
 
     try {
       const response = await axios.post(
-        "/api/bookings/create",
+        `${BASE_URL}/bookings/create`,
         {
           usuario_id: userId,
           espacio_id: spaceId,

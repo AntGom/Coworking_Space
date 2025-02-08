@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 import usePreventNumberInputScroll from "../../hooks/UsePreventScrollNumber.jsx";
 import { FaRegTrashAlt } from "react-icons/fa";
 
-const BASE_URL = 'https://coworking-space-back.onrender.com/uploads/';
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
   const { isAdmin } = useAuth();
@@ -32,7 +32,7 @@ const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get("/api/categories", {
+        const response = await axios.get(`${BASE_URL}/categories`, {
           headers: { Authorization: token },
         });
         setCategories(response.data);
@@ -52,7 +52,7 @@ const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
     if (id) {
       const fetchSpace = async () => {
         try {
-          const response = await axios.get(`/api/spaces/${id}`, {
+          const response = await axios.get(`${BASE_URL}/spaces/${id}`, {
             headers: { Authorization: token },
           });
           const space = response.data.data;
@@ -65,11 +65,11 @@ const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
             precio_por_persona: space.precio_por_persona,
             precio_espacio_completo: space.precio_espacio_completo,
             direccion: space.direccion,
-            estado: space.estado || "libre", // Si el estado es null o undefined, asigna "libre"
+            estado: space.estado || "libre",
           });
 
           const photoDetails = space.imagenes.map((image) => ({
-            url: `${BASE_URL}/${image.filename}`,
+            url: `${BASE_URL}/uploads/${image.filename}`,
             id: image.id,
           }));
           setSpacePhotos(photoDetails);
@@ -99,7 +99,7 @@ const SpaceForm = ({ onSubmit, onPhotosChange, photos, imagePreview }) => {
 
     try {
       const response = await axios.delete(
-        `/api/spaces/${id}/photos/${photoId}`,
+        `${BASE_URL}/spaces/${id}/photos/${photoId}`,
         {
           headers: { Authorization: token },
         }

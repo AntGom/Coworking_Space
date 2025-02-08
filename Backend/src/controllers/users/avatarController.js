@@ -1,40 +1,38 @@
-import validateSchema from "../../utils/validateSchema.js";
-import avatarSchema from "../../schema/user/avatarSchema.js";
-import { savePhotoService } from '../../services/photoService.js';
-import * as userModel from "../../models/users/index.js";
-import { notFoundError } from "../../services/errorService.js";
+import validateSchema from '../../utils/validateSchema.js';
+import avatarSchema from '../../schema/user/avatarSchema.js';
+import { avatarService } from '../../services/avatarService.js';
+import updateAvatarModel from '../../models/users/updateAvatarModel.js';
 
 const avatarController = async (req, res, next) => {
+  console.log('🟢 Request recibida:', req.body);
+  console.log('📂 Contenido de req.files:', req.files);
+  
   try {
-    if (!req.files || !req.files.avatar) {
-      return notFoundError("avatar");
-    }
+      if (!req.files || !req.files.avatar) {
+          console.error('❌ No se ha subido ninguna imagen.');
+          return res.status(400).json({ error: 'No se ha subido ninguna imagen.' });
+      }
 
-    const avatarFile = req.files.avatar;
+      const avatarFile = req.files.avatar;
+      console.log('📂 Archivo recibido:', avatarFile.name);
 
-    const fileDataForValidation = {
-      name: avatarFile.name,
-      mimetype: avatarFile.mimetype,
-      size: avatarFile.size,
-    };
+      const avatarUrl = await avatarService(avatarFile);
 
-    // Validarlo con JOI
-    await validateSchema(avatarSchema, { avatar: fileDataForValidation });
+      console.log('✅ Avatar URL obtenida:', avatarUrl);
 
-    // Procesarlo con Sharp
-    // Procesar y guardar el archivo
-    const avatarName = await savePhotoService(avatarFile, 100);
+      await updateAvatarModel(avatarUrl, req.user.id);
 
-    // con el modelo actaulizamos avatar en base de datos
-    await userModel.updateAvatar(avatarName, req.user.id);
+      res.json({
+          status: 'ok',
+          message: 'Avatar actualizado correctamente.',
+          avatarUrl,
+      });
 
-    res.send({
-      status: "ok",
-      message: "Avatar actualizado",
-    });
   } catch (err) {
-    next(err);
+      console.error('❌ Error en avatarController:', err);
+      next(err);
   }
 };
+
 
 export default avatarController;

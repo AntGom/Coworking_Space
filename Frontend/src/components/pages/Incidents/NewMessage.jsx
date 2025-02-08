@@ -3,17 +3,20 @@ import { useState } from 'react';
 import axios from 'axios';
 import { io } from 'socket.io-client';
 
-// Conexión a Socket.IO
-const socket = io(import.meta.env.VITE_API_URL || "http://localhost:8000");//Apuntar al puerto correcto del servidor
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:10000";
+
+//Conexión Socket.IO
+const socket = io(SOCKET_URL);
 
 const NewMessage = ({ incidentId, onMessageSent }) => {
   const [message, setMessage] = useState('');
   const token = localStorage.getItem("token");
+  const BASE_URL = import.meta.env.VITE_API_URL;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`/api/incidents/postmessage`, {
+      const response = await axios.post(`${BASE_URL}/incidents/postmessage`, {
         incidencia_id: incidentId,
         mensaje: message,
       }, {
@@ -25,7 +28,7 @@ const NewMessage = ({ incidentId, onMessageSent }) => {
       const newMessage = response.data;
       const currentDate = new Date();
 
-      // Emite el evento 'sendMessage' con el nuevo mensaje
+      //Emite evento sendMessage con nuevo mensaje
       socket.emit('sendMessage', {
         mensaje_id: newMessage.messageId,
         incidencia_id: incidentId,
@@ -35,7 +38,7 @@ const NewMessage = ({ incidentId, onMessageSent }) => {
       });
 
       setMessage('');
-      onMessageSent(); 
+      onMessageSent(); //Refresca mensajes tras enviar uno nuevo
     } catch (err) {
       console.error('Error al enviar el mensaje:', err);
     }

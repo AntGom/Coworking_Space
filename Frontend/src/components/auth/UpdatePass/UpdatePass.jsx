@@ -6,8 +6,6 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const API_URL = import.meta.env.VITE_API_URL ;
-
 function UpdatePassword() {
   const { token } = useAuth();
   const [passwords, setPasswords] = useState({
@@ -45,10 +43,10 @@ function UpdatePassword() {
       };
 
       const response = await axios.post(
-        `${API_URL}/users/password/update`,
-        payload,
-        {
-          headers: { Authorization: token },
+        `${import.meta.env.VITE_API_URL}/users/password/update`,payload,{
+          headers: {
+            Authorization: token,
+          },
         }
       );
 

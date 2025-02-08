@@ -1,48 +1,55 @@
-import fs from "fs/promises";
-import path from "path";
-import sharp from "sharp";
-import { v4 as uuid } from "uuid";
-import { saveFileError, deleteFileError } from "./errorService.js";
-import { UPLOADS_DIR } from '../../env.js';
+import cloudinary from 'cloudinary';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';  
+import { CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET, CLOUDINARY_CLOUD_NAME } from '../../env.js';
+import { saveFileError } from './errorService.js';
 
-export const savePhotoService = async (img, width) => {
+cloudinary.config({
+  cloud_name: CLOUDINARY_CLOUD_NAME,
+  api_key: CLOUDINARY_API_KEY,
+  api_secret: CLOUDINARY_API_SECRET,
+});
+
+// Obtener __dirname en ES Modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export const savePhotoService = async (img) => {
   try {
-    // Ruta absoluta al directorio de subida de archivos.
-    //const uploadsDir = path.join(process.cwd(), "..", "..", UPLOADS_DIR); // '../../uploads'
-    const uploadsDir = path.join(process.cwd(), UPLOADS_DIR);
-    
-    // Creamos la carpeta uploads si no existe con la ayuda del método "access".
-    try {
-      await fs.access(uploadsDir);
-    } catch {
-      // Si el método anterior lanza un error quiere decir que el directorio no existe.
-      // En ese caso entraríamos en el catch y lo crearíamos.
-      await fs.mkdir(uploadsDir);
+    if (!img || !img.name) {
+      throw new Error('La imagen no contiene un nombre válido.');
     }
 
-    // Creamos un objeto de tipo Sharp con la imagen recibida.
-    const sharpImg = sharp(img.data);
+    //Carpeta temporal segura para cualquier sistema
+    const tmpDir = os.tmpdir();
+    const tempPath = path.join(tmpDir, img.name);
 
-    // Redimensionamos la imagen. El parámetro "width" representa un ancho en píxeles.
-    sharpImg.resize(width);
+    //Mover archivo temporalmente
+    await img.mv(tempPath);
 
-    // Generamos un nombre único para la imagen para evitar que haya dos imágenes con el
-    // mismo nombre.
-    const imgName = `${uuid()}.jpg`;
+    //Subir a Cloudinary
+    const result = await cloudinary.uploader.upload(tempPath, {
+      resource_type: 'auto',
+      width: 500,  
+      crop: 'limit',
+    });
 
-    // Ruta absoluta a la imagen.
-    const imgPath = path.join(uploadsDir, imgName);
+    //Eliminar archivo temporal
+    fs.unlinkSync(tempPath);
 
-    // Guardamos la imagen en la carpeta de subida de archivos.
-    await sharpImg.toFile(imgPath);
-
-    // Retornamos el nombre con el que hemos guardado la imagen.
-    return imgName;
+    //Devolver la URL de imagen
+    return result.secure_url;
   } catch (err) {
-    console.error(err);
+    console.error('Error al subir la imagen a Cloudinary:', err);
     saveFileError();
+    throw err;
   }
 };
+
+
 
 export const deletePhotoService = async (imgName) => {
   try {

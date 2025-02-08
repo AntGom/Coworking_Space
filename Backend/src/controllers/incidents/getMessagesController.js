@@ -1,7 +1,7 @@
 import * as messagesModel from '../../models/incidents/index.js';
 
 const getMessagesController = async (req, res) => {
-    const { id } = req.params; // Obtiene el ID de la incidencia de los pathParams.
+    const { id } = req.params;
 
     try {
         const messages = await messagesModel.getMessagesModel(id);

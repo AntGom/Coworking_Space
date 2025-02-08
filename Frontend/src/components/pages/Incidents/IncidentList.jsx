@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -9,11 +10,13 @@ const IncidentList = () => {
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
+  const BASE_URL = import.meta.env.VITE_API_URL;
+
 
   useEffect(() => {
     const fetchIncidents = async () => {
       try {
-        const response = await axios.get("/api/incidents", {
+        const response = await axios.get(`${BASE_URL}/incidents`, {
           headers: {
             Authorization: token,
           },

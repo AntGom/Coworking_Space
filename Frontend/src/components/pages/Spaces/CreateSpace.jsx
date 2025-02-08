@@ -14,12 +14,16 @@ const CreateSpace = () => {
 
   const handleCreateSubmit = async (id, formData, token) => {
     try {
-      const response = await axios.post("/api/spaces", formData, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/spaces`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
       const spaceId = response.data.data.id;
 
       if (photos.length > 0) {
@@ -48,12 +52,16 @@ const CreateSpace = () => {
     // eslint-disable-next-line no-unused-vars
     photos.forEach((file, index) => formData.append(`photo`, file));
     try {
-      await axios.post(`/api/spaces/${spaceId}/photos`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: token,
-        },
-      });
+      await axios.post(
+        `${import.meta.env.VITE_API_URL}/spaces/${spaceId}/photos`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: token,
+          },
+        }
+      );
       toast.success("Fotos subidas");
     } catch (error) {
       console.error("Error al subir las fotos:", error);

@@ -11,13 +11,12 @@ function SpaceDetail() {
   const [space, setSpace] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const imageUrl = 'https://coworking-space-back.onrender.com/uploads/';
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchSpace = async () => {
       try {
-        const response = await axios.get(`/api/spaces/${id}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/spaces/${id}`);
         if (response.data && response.data.data) {
           setSpace(response.data.data);
         } else {
@@ -74,28 +73,28 @@ function SpaceDetail() {
       </h2>
       <div className="p-6 bg-white rounded-lg shadow-md max-w-4xl w-full grid grid-cols-1 gap-4">
         {space.imagenes && space.imagenes.length > 0 ? (
-          <Carousel
-            showThumbs
-            dynamicHeight={true}
-            showIndicators={true}
-            showStatus={false}
-          >
-            {space.imagenes.map((imagen, index) => (
+          <Carousel showThumbs dynamicHeight={true} showIndicators={true} showStatus={false}>
+          {space.imagenes.map((imagen, index) => {
+            const imageUrl = imagen.filename.startsWith("http")
+              ? imagen.filename
+              : `${import.meta.env.VITE_API_URL}/uploads/${imagen.filename}`;
+        
+            return (
               <div key={index} className="relative">
                 <img
-                  src={`${imageUrl}/${imagen.filename}`}
+                  src={imageUrl}
                   alt={`Imagen ${index + 1}`}
                   className="w-full h-full object-cover rounded-lg"
-                  onError={(e) =>
-                    (e.target.src = "https://via.placeholder.com/300x200")
-                  }
+                  onError={(e) => (e.target.src = "/no-image.webp")}
                 />
               </div>
-            ))}
-          </Carousel>
+            );
+          })}
+        </Carousel>
+        
         ) : (
           <img
-            src="https://via.placeholder.com/300x200"
+            src="/no-image.webp"
             alt="Placeholder"
             className="w-full h-48 rounded-lg object-cover"
           />

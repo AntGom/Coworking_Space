@@ -1,17 +1,16 @@
 import mysql2 from 'mysql2/promise';
-import { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT } from '../../env.js'; // Asegúrate de importar DB_PORT
+import { MYSQL_URL } from '../../env.js';
+import { URL } from 'url';
 
-// Crear la conexión a la base de datos usando el pool
+//Analizar URL de conexión
+const dbUrl = new URL(MYSQL_URL);
+
 const pool = mysql2.createPool({
-    host: DB_HOST,
-    user: DB_USER,
-    password: DB_PASSWORD,
-    database: DB_NAME,
-    port: DB_PORT,
-    waitForConnections: true,
-    connectionLimit: 10,
-    queueLimit: 0,
-    connectTimeout: 30000,
+    host: dbUrl.hostname,
+    port: dbUrl.port,
+    user: dbUrl.username,
+    password: dbUrl.password,
+    database: dbUrl.pathname.split('/')[1],
 });
 
 export default pool;
