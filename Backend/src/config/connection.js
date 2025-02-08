@@ -1,5 +1,5 @@
 import mysql2 from 'mysql2/promise';
-import { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT } from '../../env.js'; //Asegúrate de importar DB_PORT
+import { DB_USER, DB_PASSWORD, DB_NAME, DB_HOST, DB_PORT } from '../../env.js'; // Asegúrate de importar DB_PORT
 
 // Crear la conexión a la base de datos usando el pool
 const pool = mysql2.createPool({

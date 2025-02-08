@@ -2,25 +2,25 @@ import { FaFacebook, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 function Footer() {
   return (
-    <footer className="bg-black text-white py-8 border-t-2 border-gray-700">
-      <section className="container mx-auto  mb-8 flex flex-row items-center justify-around flex-wrap  ">
+    <footer className="bg-black text-white py-12 border-t-2 border-gray-700">
+      <div className="container mx-auto flex flex-col items-center justify-between sm:flex-row">
         {/* Logo Section */}
-        <div className="flex items-center mb-4">
+        <div className="flex items-center mb-4 sm:mb-0">
           <img
-            src="/logocoworkingrgb.png"
+            src="/logocoworkingrgb.png" // Ruta de tu logo
             alt="Logo"
             className="h-12 mr-3"
           />
         </div>
         
-        {/* Info Contacto */}
-        <div className="text-center sm:text-left mb-4 mt-4">
+        {/* Contact Info */}
+        <div className="text-center sm:text-left mb-4 sm:mb-0">
           <p className="mb-1">1234 Calle Ficticia, Ciudad Inventada, País</p>
           <p>Teléfono: (123) 456-7890</p>
         </div>
         
-        {/* Redes Sociales */}
-        <div className="flex ">
+        {/* Social Media Links */}
+        <div className="flex">
           <a
             href="https://www.facebook.com"
             target="_blank"
@@ -46,10 +46,7 @@ function Footer() {
             <FaWhatsapp size={24} />
           </a>
         </div>
-      </section>
-      <div className="flex justify-center items-center text-center">
-          <p>{new Date().getFullYear()}© Antonio Gómez Domínguez. Con ❤ desde Andalucía.</p>
-        </div>
+      </div>
     </footer>
   );
 }

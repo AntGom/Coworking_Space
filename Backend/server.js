@@ -10,12 +10,13 @@ import path from 'path';
 import { createServer } from 'http';
 import { Server } from 'socket.io';
 
+// Configurar la aplicación express.
 const app = express();
 
-//Crear servidor HTTP
+// Crear servidor HTTP.
 const server = createServer(app);
 
-//Configurar Socket.IO
+// Configurar Socket.IO.
 const io = new Server(server, {
     cors: {
         origin: process.env.CLIENT_URL || "http://localhost:3000",
@@ -36,7 +37,7 @@ io.on('connection', (socket) => {
     });
 });
 
-//Servir archivos estáticos desde uploads
+// Servir archivos estáticos desde la carpeta 'uploads'.
 const PUBLIC_FOLDER = path.join(process.cwd(), 'uploads');
 app.use('/uploads', express.static(PUBLIC_FOLDER));
 
@@ -47,10 +48,10 @@ app.use(corsMiddleware);
 // Middleware Morgan-> info de la solicitud.
 app.use(morgan('dev'));
 
-//Middlewares Parseo body de petición
-app.use(express.json()); //Convierte json->objeto y asigna a req.body
-app.use(express.urlencoded({ extended: true })); //Convierte formularios.html->objeto y asigna a req.body
-app.use(fileUpload()); //Carga de archivos con express
+// Middlewares Parseo del body de la petición.
+app.use(express.json()); // Convierte solicitudes json->objeto y asigna a req.body.
+app.use(express.urlencoded({ extended: true })); // Convierte solicitudes formularios.html->objeto y asigna a req.body.
+app.use(fileUpload()); // -> carga de archivos con express.
 
 //!-> Registro de directorio rutas.
 app.use('/api', routes);
